@@ -4,7 +4,7 @@ What's the difference between `johnsmith@gmail.com`, `JohnSmith@gmail.com`, `joh
 
 # How to Use
 
-Using this module is super simple! 
+Using this module is super simple! It has been tested on NodeJS version `12.0.0` and above.
 
 ```javascript
 const emailClean = require("email-cleaner"); //CommonJS
@@ -19,14 +19,15 @@ emailClean("John.Smith@gmail.com") // johnsmith@gmail.com
 emailClean(email, [configuration])
 ```
 
-## `email`
+## `email: string`
 **Required**
-email string for the function to clean
+
+email for the function to clean
 
 ## `configuration`
 **Optional**
 
-**All configurations are optional and are set to the default if not defined**
+**All configurations are optional and are set to the default if not defined, see below for more details**
 
 set options that allows you to control how this module works
 
@@ -67,7 +68,10 @@ a string on domains to exclude from cleaning.
 **Note:** Don't include the `@` sign in array of strings 
 
 ### `defaultOptions: options`
-See the `options` type [here](#options)
+See the `options` type [here](#options-type)
+
+Set options for email cleaning. Applies to any domain unless if specified in `cases`
+
 **default:**
 ```javascript
     defaultOptions: {
@@ -76,10 +80,11 @@ See the `options` type [here](#options)
         plusSign: true,
     },
 ```
-Set options for email cleaning. Applies to any domain unless if specified in `cases`
-
 ### `cases: caseOptions`
-***default:**
+
+Sets the options on what should be cleaned if there are any matches of email domain
+
+**default:**
 ```javascript
     cases: [
         {
