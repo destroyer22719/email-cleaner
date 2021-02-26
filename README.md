@@ -1,17 +1,20 @@
 # Email Cleaner
 
-What's the difference between `johnsmith@gmail.com`, `JohnSmith@gmail.com`, `john.smith@gmail.com`, `J.o.h.n.S.m.i.t.h@gmail.com`, and `johnsmith+anything@gmail`? To the email server there is none! They'd all send to the same email addresses! 
+What's the difference between `johnsmith@gmail.com`, `john.smith@gmail.com`, `J.o.h.n.S.m.i.t.h@gmail.com`, and `johnsmith+anything@gmail`? To the email server, there is none! They'd all send to the same email addresses! 
 
-However, most backend developer like myself are probably really lazy to even check that stuff. They probably do `SELECT * FROM USER WHERE email=john.smith@gmail.com` or `User.find({email: req.body.email})` thus leazily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so.
+Users can take advantage of these tricks to create multiple account with email addresses that will still send to the same account.
 
-Feel free to contribute to this projectt! It's open for pull requests!
+However, most backend developer like myself are probably really lazy to even check that stuff. They probably do `SELECT * FROM USER WHERE email=johnsmith@gmail.com` or `User.find({email: req.body.email})` thus sneakily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so. Just it before you send a request to the server, or before you insert it into the database
+
+Feel free to contribute to this project! It's open for pull requests and issues!
 https://github.com/destroyer22719/email-cleaner
 
 # How to Use
 
 Using this module is super simple! It has been tested on NodeJS version `12.0.0` and above.
 
-install with
+installation:
+
 npm: `npm install email-cleaner`
 
 yarn: `yarn add email-cleaner`
@@ -28,6 +31,9 @@ emailCleaner("John.Smith@gmail.com") // johnsmith@gmail.com
 ```javascript
 emailCleaner(email, [configuration])
 ```
+returns type `string` or `null` when email address doesn't match Regex
+
+**Reminder:** By default it won't clean email addresses with periods unless if it's `gmail.com`, `outlook.com`, or `hotmail.com` because corporate and/or education emails might need periods as removing them would make the email address send to a user that doesn't exist. You can override this by setting [defaultOptions](#defaultoptions-options)
 
 ## `email: string`
 **Required**
@@ -75,17 +81,16 @@ Includes case insensitivity,
 
 Set your own custom Regular Expression to validate, use custom Regex at own risk. 
 
+### `defaultOptions: options`
+See the `options` type [here](#options-type)
+
+Set options for email cleaning. Applies to any domain unless if specified in [cases]()
 ### `excludedDomains: string[]`
 
 **default:** `[] (None)`
 
 a string on domains to exclude from cleaning. 
 **Note:** Don't include the `@` sign in array of strings 
-
-### `defaultOptions: options`
-See the `options` type [here](#options-type)
-
-Set options for email cleaning. Applies to any domain unless if specified in `cases`
 
 **default:**
 ```javascript
@@ -114,12 +119,12 @@ Sets the options on what should be cleaned if there are any matches of email dom
 ```
 **Note:** After a few experiments on some corporate and school emails removing periods will result in sending an email to a user that doesn't exist, thus that wasn't in the default configuration and only applies to the most popular email domains on websites.
 
-### `overrideDefaultOptions: boolean`
+### `overrideDefaultCases: boolean`
 **default:** false
 
 This will remove the [default cases](#caseoptions-type) above. Set to `true` if you wish to remove them.
-### Options (type)
-(type used in (defaultOptions)[#defaultoptionsoptions] and (caseOptions.options)[casescaseoptions])
+### options (type)
+(type used in [defaultOptions](#defaultoptionsoptions) and [caseOptions.options](casescaseoptions))
 ```javascript
     caseSensitive?: boolean,
     periods?: boolean,
@@ -186,7 +191,7 @@ Used in `cases` in the configuration
 ```
 
 **`domains:`**
-A list of domains you want include and apply `options` for
+A list of domains you want include and apply `options` for, do not use the `@` sign.
 
 **Example**
 `domains: ["test.com", "other.com"]`
