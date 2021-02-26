@@ -4,7 +4,7 @@ What's the difference between `johnsmith@gmail.com`, `john.smith@gmail.com`, `J.
 
 Users can take advantage of these tricks to create multiple account with email addresses that will still send to the same account.
 
-However, most backend developer like myself are probably really lazy to even check that stuff. They probably do `SELECT * FROM USER WHERE email=johnsmith@gmail.com` or `User.find({email: req.body.email})` thus sneakily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so. Just it before you send a request to the server, or before you insert it into the database
+However, most backend developer like myself are probably really lazy to even check that stuff. They probably do `SELECT * FROM USER WHERE email=johnsmith@gmail.com` or `User.find({email: req.body.email})` thus sneakily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so. Just use it before you send a request to the server, or before you insert it into the database
 
 Feel free to contribute to this project! It's open for pull requests and issues!
 https://github.com/destroyer22719/email-cleaner
@@ -31,7 +31,7 @@ emailCleaner("John.Smith@gmail.com") // johnsmith@gmail.com
 ```javascript
 emailCleaner(email, [configuration])
 ```
-returns type `string` or `null` when email address doesn't match Regex
+returns type `string`, or `null` when email address doesn't match Regex and `validate` configuration has been set to true (by default it's set to false)
 
 **Reminder:** By default it won't clean email addresses with periods unless if it's `gmail.com`, `outlook.com`, or `hotmail.com` because corporate and/or education emails might need periods as removing them would make the email address send to a user that doesn't exist. You can override this by setting [defaultOptions](#defaultoptions-options)
 
@@ -63,7 +63,7 @@ set options that allows you to control how this module works
 
 Define whether or not you want the string to be validated. If it doesn't match, it'll return null. Else returns string.
 
-### `validateorRegex: Regex`
+### `validatorRegex: Regex`
 
 **default:** `/^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i`
 
@@ -102,7 +102,7 @@ a string on domains to exclude from cleaning.
 ```
 ### `cases: caseOptions`
 
-Sets the options on what should be cleaned if there are any matches of email domain
+Sets the options on what should be cleaned if there are any matches of email domain. See [caseOptions](#caseoptions-type)
 
 **default:**
 ```javascript
@@ -117,14 +117,14 @@ Sets the options on what should be cleaned if there are any matches of email dom
         }
     ]
 ```
-**Note:** After a few experiments on some corporate and school emails removing periods will result in sending an email to a user that doesn't exist, thus that wasn't in the default configuration and only applies to the most popular email domains on websites.
+**Note:** After a few experiments. Removing the `.` on some corporate or school emails would send to an email address that doesn't exist. Thus the `periods` option has been set to the popular email domains.
 
 ### `overrideDefaultCases: boolean`
-**default:** false
+**default:** `false`
 
 This will remove the [default cases](#caseoptions-type) above. Set to `true` if you wish to remove them.
-### options (type)
-(type used in [defaultOptions](#defaultoptionsoptions) and [caseOptions.options](casescaseoptions))
+### `options` (type)
+(type used in [defaultOptions](#defaultoptions-options) and [caseOptions.options](#caseoptions-type))
 ```javascript
     caseSensitive?: boolean,
     periods?: boolean,
@@ -183,8 +183,8 @@ emailClean("john.smith+anything@gmail.com", {
 }) // john.smith+anything@gmail.com
 ```
 
-### caseOptions (type)
-Used in `cases` in the configuration
+### `caseOptions` (type)
+Used in `cases` in the [configuration](#cases-caseoptions)
 ```javascript
     domains: string[],
     options: options
