@@ -1,12 +1,12 @@
 {
   "name": "email-cleaner",
-  "version": "0.9.1",
+  "version": "0.9.3",
   "description": "Prevent cheeky users from inputting different email addresses that'll go to the same account",
   "main": "dist/index.js",
   "types": "dist",
   "scripts": {
     "test": "jest",
-    "build": "tsc -p ."
+    "build": "tsc"
   },
   "keywords": [
     "email",

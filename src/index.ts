@@ -52,4 +52,4 @@ const cleanEmail = (email: string, options: configuration = defaultConfiguration
     return email;
 }
 
-export default cleanEmail;
+export = cleanEmail;
