@@ -1,6 +1,6 @@
 {
   "name": "email-cleaner",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Prevent cheeky users from inputting different email addresses that'll go to the same account",
   "main": "dist/index.js",
   "types": "dist",
