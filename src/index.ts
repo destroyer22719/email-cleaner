@@ -37,7 +37,6 @@ const cleanEmail = (email: string, options: configuration = defaultConfiguration
     const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
 
 
-    // console.log(email, `validate: ${validate}`, `invalid: ${!email.match(validateorRegex!) && validate}`);
     if (!email.match(validatorRegex!) && validate) return null
     if (!email.match("@")) return compileEmail(email, defaultOptions!);
     if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
@@ -48,7 +47,6 @@ const cleanEmail = (email: string, options: configuration = defaultConfiguration
                 return null;
             }
         }
-        console.log(parseOptions(email.split("@")[1].toLowerCase(), options));
         return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options))
     } 
     return email;
