@@ -8,7 +8,7 @@ export interface configuration {
 }
 
 export interface caseOptions {
-    domain: string[],
+    domains: string[],
     options: options
 }
 
@@ -20,17 +20,17 @@ export interface options {
 
 export const defaultConfigurations: configuration = {
     validate: false,
-    validateorRegex: /^[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i,
+    validateorRegex: /^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i,
     overrideDefaultCases: false,
     excludedDomains: [],
     defaultOptions: {
         caseSensitive: true,
         periods: false,
-        plusSign: false,
+        plusSign: true,
     },
     cases: [
         {
-            domain: ["gmail.com", "hotmail.com", "outlook.com"],
+            domains: ["gmail.com", "hotmail.com", "outlook.com"],
             options: {
                 caseSensitive: true,
                 periods: true,
