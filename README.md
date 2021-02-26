@@ -32,7 +32,7 @@ emailCleaner(email, [configuration])
 ## `email: string`
 **Required**
 
-email for the function to clean
+email/string for the function to clean
 
 ## `configuration`
 **Optional**
@@ -55,20 +55,25 @@ set options that allows you to control how this module works
 
 **default:** `false`
 
-Define whether or not you want the string to be validated. If set to true it's invalid from the regular expression it will return `null`, else return a string
+Define whether or not you want the string to be validated. If it doesn't match, it'll return null. Else returns string.
 
 ### `validateorRegex: Regex`
 
 **default:** `/^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i`
 
 **explaination**:
-Includes case insensitivity
+Includes case insensitivity,
+
 `^(?!\.)`: Cannot start with a `.`
+
 `[a-z0-9\.\-\+]+`: Include all letters, numbers, `-`, `.`, and `+` one or more times
+
 `@([a-z]+)`: an `@` followed by any letter
+
 `(\.[a-z]+)+$`: followed by and/or end with a `.` and any letter. Eg. `.com`, `school.edu.com`, etc.
 
-Set your own custom Regular Expression to validate, use custom at own risk. 
+
+Set your own custom Regular Expression to validate, use custom Regex at own risk. 
 
 ### `excludedDomains: string[]`
 
