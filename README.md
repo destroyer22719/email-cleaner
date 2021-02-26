@@ -1,22 +1,32 @@
 # Email Cleaner
 
-What's the difference between `johnsmith@gmail.com`, `JohnSmith@gmail.com`, `john.smith@gmail.com`, `J.o.h.n.S.m.i.t.h@gmail.com`, and `johnsmith+anything@gmail`? To the email server there is none! They'd all send to the same email addresses! However, most backend developer like myself are probably really lazy and check that stuff. They probably do `SELECT * FROM USER WHERE email=john.smith@gmail.com` or `User.find({email: req.body.email})` thus leazily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so.
+What's the difference between `johnsmith@gmail.com`, `JohnSmith@gmail.com`, `john.smith@gmail.com`, `J.o.h.n.S.m.i.t.h@gmail.com`, and `johnsmith+anything@gmail`? To the email server there is none! They'd all send to the same email addresses! 
+
+However, most backend developer like myself are probably really lazy to even check that stuff. They probably do `SELECT * FROM USER WHERE email=john.smith@gmail.com` or `User.find({email: req.body.email})` thus leazily allowing cheeky users to slip through the cracks. With Email Cleaner it'll prevent users from doing so.
+
+Feel free to contribute to this projectt! It's open for pull requests!
+https://github.com/destroyer22719/email-cleaner
 
 # How to Use
 
 Using this module is super simple! It has been tested on NodeJS version `12.0.0` and above.
 
-```javascript
-const emailClean = require("email-cleaner"); //CommonJS
-import emailClean from "email-cleaner"; //ES Module
+install with
+npm: `npm install email-cleaner`
 
-emailClean("John.Smith@gmail.com") // johnsmith@gmail.com
+yarn: `yarn add email-cleaner`
+
+```javascript
+const emailCleaner = require("email-cleaner"); //CommonJS
+import emailCleaner from "email-cleaner"; //ES Module
+
+emailCleaner("John.Smith@gmail.com") // johnsmith@gmail.com
 ```
 
 # Documentation
 
 ```javascript
-emailClean(email, [configuration])
+emailCleaner(email, [configuration])
 ```
 
 ## `email: string`
