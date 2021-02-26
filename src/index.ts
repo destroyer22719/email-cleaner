@@ -34,15 +34,15 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
 
 const cleanEmail = (email: string, options: configuration = defaultConfigurations): string | null => {
     options = parseConfigurations(options);
-    const {excludedDomains, validateorRegex, validate, defaultOptions} = options;
+    const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
 
 
     // console.log(email, `validate: ${validate}`, `invalid: ${!email.match(validateorRegex!) && validate}`);
-    if (!email.match(validateorRegex!) && validate) return null
+    if (!email.match(validatorRegex!) && validate) return null
     if (!email.match("@")) return compileEmail(email, defaultOptions!);
     if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
         if (validate) {
-            if (email.match(validateorRegex!)) {
+            if (email.match(validatorRegex!)) {
                 return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
             } else {
                 return null;

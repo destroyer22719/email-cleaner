@@ -1,6 +1,6 @@
 export interface configuration {
     validate?: boolean,
-    validateorRegex?: RegExp,
+    validatorRegex?: RegExp,
     overrideDefaultCases?: boolean,
     excludedDomains?: string[],
     defaultOptions?: options,
@@ -20,7 +20,7 @@ export interface options {
 
 export const defaultConfigurations: configuration = {
     validate: false,
-    validateorRegex: /^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i,
+    validatorRegex: /^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i,
     overrideDefaultCases: false,
     excludedDomains: [],
     defaultOptions: {
