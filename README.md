@@ -84,7 +84,7 @@ Set your own custom Regular Expression to validate, use custom Regex at own risk
 ### `defaultOptions: options`
 See the `options` type [here](#options-type)
 
-Set options for email cleaning. Applies to any domain unless if specified in [cases]()
+Set options for email cleaning. Applies to any domain unless if specified in [cases](#cases-caseoptions)
 ### `excludedDomains: string[]`
 
 **default:** `[] (None)`
