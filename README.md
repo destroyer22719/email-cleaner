@@ -25,11 +25,12 @@ email string for the function to clean
 
 ## `configuration`
 **Optional**
+
 **All configurations are optional and are set to the default if not defined**
 
 set options that allows you to control how this module works
 
-```typescript
+```javascript
     validate?: boolean,
     validatorRegex?: RegExp,
     excludedDomains?: string[],
@@ -65,7 +66,8 @@ Set your own custom Regular Expression to validate, use custom at own risk.
 a string on domains to exclude from cleaning. 
 **Note:** Don't include the `@` sign in array of strings 
 
-### `defaultOptions:[options](#options)`
+### `defaultOptions: options`
+See the `options` type [here](#options)
 **default:**
 ```javascript
     defaultOptions: {
@@ -92,15 +94,18 @@ Set options for email cleaning. Applies to any domain unless if specified in `ca
 ```
 **Note:** After a few experiments on some corporate and school emails removing periods will result in sending an email to a user that doesn't exist, thus that wasn't in the default configuration and only applies to the most popular email domains on websites.
 
+### `overrideDefaultOptions: boolean`
+**default:** false
 
+This will remove the [default cases](#caseoptions-type) above. Set to `true` if you wish to remove them.
 ### Options (type)
-(type used in `defaultOptions` and `caseOptions.options`)
-```typescript
+(type used in (defaultOptions)[#defaultoptionsoptions] and (caseOptions.options)[casescaseoptions])
+```javascript
     caseSensitive?: boolean,
     periods?: boolean,
     plusSign?: boolean,
 ```
-**`caseSensitive`**
+**`caseSensitive:`**
 cleans emails and converts letters all to lowercase
 
 **Example**
@@ -117,7 +122,7 @@ emailClean("JohnSmith@gmail.com", {
     }
 }) // JohnSmith@gmail.com
 ```
-**`periods`**
+**`periods:`**
 cleans emails and removes `.` if set to true
 
 **Example**
@@ -135,7 +140,7 @@ emailClean("john.smith@gmail.com", {
 }) // john.smith@gmail.com
 ```
 
-**`plusSign`**
+**`plusSign:`**
 cleans emails and removes the `+` character and anything between it and an `@` if set to true
 
 **Example**
@@ -155,16 +160,16 @@ emailClean("john.smith+anything@gmail.com", {
 
 ### caseOptions (type)
 Used in `cases` in the configuration
-```typescript
+```javascript
     domains: string[],
     options: options
 ```
 
-**`domains`**
+**`domains:`**
 A list of domains you want include and apply `options` for
 
 **Example**
 `domains: ["test.com", "other.com"]`
 
 
-See the [options](#Options) type above to apply these options on the matching domain
+See the [options](#Options-type) type above to apply these options on the matching domain
