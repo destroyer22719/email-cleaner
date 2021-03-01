@@ -132,7 +132,7 @@ Sets the options on what should be cleaned if there are any matches of email dom
     ]
 ```
 
-Anything written on the `cases` array that matches the `defaultCases` array will be overwitten, with the larger the index of the index having their option specified to their domain used. **DO NOT** change the `defaultCases` array. If you want to remove it look at 
+Any domains written on the `cases` array that matches the `defaultCases` array will be overwitten, with the larger the index of the index having their option specified to their domain used. **DO NOT** change the `defaultCases` array. If you want to remove it look at [overrideDefaultCases](#overridedefaultcases-boolean)
 
 **Note:** After a few experiments. Removing the `.` for email providers doesn't work for email providers that aren't `gmail.com`. Thus the `periods` option has been set to gmail domains only. It appears with yahoo a `youremail+anything@yahoo.com` doesn't work either, thus `plusSign` has been set to false as well as `periods`.
 
