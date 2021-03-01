@@ -1,0 +1,17 @@
+name: Continuous Integration of email-cleaner
+
+on: 
+  pull_requests:
+    branches: [master]
+
+jobs:
+  test_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+  - uses: actions/checkout@v2
+  - uses: actions/setup-node@v2
+    with:
+      node-version: '14'
+  - run: npm install
+  - run: npm test
+  - run: npm run build
