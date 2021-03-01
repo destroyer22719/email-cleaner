@@ -4,6 +4,7 @@ export interface configuration {
     overrideDefaultCases?: boolean,
     excludedDomains?: string[],
     defaultOptions?: options,
+    defaultCases?: caseOptions[],
     cases?: caseOptions[],
 }
 
@@ -28,14 +29,31 @@ export const defaultConfigurations: configuration = {
         periods: false,
         plusSign: true,
     },
-    cases: [
+    defaultCases: [
         {
-            domains: ["gmail.com", "hotmail.com", "outlook.com"],
+            domains: ["gmail.com"],
             options: {
                 caseSensitive: true,
                 periods: true,
                 plusSign: true,
             }
+        },
+        {
+            domains: ["outlook.com, hotmail.com"],
+            options: {
+                caseSensitive: true,
+                periods: false,
+                plusSign: true,
+            }
+        },
+        {
+            domains: ["yahoo.com"],
+            options: {
+                caseSensitive: true,
+                periods: false,
+                plusSign: false,
+            }
         }
-    ]
+    ],
+    cases: []
 }

@@ -33,8 +33,7 @@ emailCleaner(email, [configuration])
 ```
 returns type `string`, or `null` when email address doesn't match Regex and `validate` configuration has been set to true (by default it's set to false)
 
-**Reminder:** By default it won't clean email addresses with periods unless if it's `gmail.com`, `outlook.com`, or `hotmail.com` because corporate and/or education emails might need periods as removing them would make the email address send to a user that doesn't exist. You can override this by setting [defaultOptions](#defaultoptions-options)
-
+**Reminder:** By default it won't clean email addresses with periods unless if it's `gmail.com`. Since it appears in `outlook.com`/`hotmail.com`, and `yahoo.com` emails periods do matter. You can override this by setting [defaultOptions](#defaultoptions-options). `+` signs also won't be cleaned by default on `yahoo.com` as it seems to not work. 
 ## `email: string`
 **Required**
 
@@ -68,26 +67,25 @@ Define whether or not you want the string to be validated. If it doesn't match, 
 **default:** `/^(?!\.)[a-z0-9\.\-\+]+@([a-z]+)(\.[a-z]+)+$/i`
 
 **explaination**:
-Includes case insensitivity,
+Includes case insensitivity*,
 
 `^(?!\.)`: Cannot start with a `.`
 
 `[a-z0-9\.\-\+]+`: Include all letters, numbers, `-`, `.`, and `+` one or more times
 
-`@([a-z]+)`: an `@` followed by any letter
+`@([a-z]+)`: an `@` followed by any letter one or more times
 
-`(\.[a-z]+)+$`: followed by and/or end with a `.` and any letter. Eg. `.com`, `school.edu.com`, etc.
+`(\.[a-z]+)+$`: proceeding and/or end with a `.` and any letter. Eg. `.com`, `school.edu.com`, etc.
 
 
-Set your own custom Regular Expression to validate, use custom Regex at own risk. 
-
+Set your own custom Regular Expression to validate
 ### `defaultOptions: options`
 See the `options` type [here](#options-type)
 
 Set options for email cleaning. Applies to any domain unless if specified in [cases](#cases-caseoptions)
 ### `excludedDomains: string[]`
 
-**default:** `[] (None)`
+**default:** `[]`
 
 a string on domains to exclude from cleaning. 
 **Note:** Don't include the `@` sign in array of strings 
@@ -102,27 +100,46 @@ a string on domains to exclude from cleaning.
 ```
 ### `cases: caseOptions`
 
-Sets the options on what should be cleaned if there are any matches of email domain. See [caseOptions](#caseoptions-type)
+Sets the options on what should be cleaned if there are any matches of email domain. See [caseOptions](#caseoptions-type) for further information on configuring. 
 
 **default:**
 ```javascript
-    cases: [
+    defaultCases: [
         {
-            domains: ["gmail.com", "hotmail.com", "outlook.com"],
+            domains: ["gmail.com"],
             options: {
                 caseSensitive: true,
                 periods: true,
                 plusSign: true,
             }
+        },
+        {
+            domains: ["outlook.com, hotmail.com"],
+            options: {
+                caseSensitive: true,
+                periods: false,
+                plusSign: true,
+            }
+        },
+        {
+            domains: ["yahoo.com"],
+            options: {
+                caseSensitive: true,
+                periods: false,
+                plusSign: false,
+            }
         }
     ]
 ```
-**Note:** After a few experiments. Removing the `.` on some corporate or school emails would send to an email address that doesn't exist. Thus the `periods` option has been set to the popular email domains.
+
+Anything written on the `cases` array that matches the `defaultCases` array will be overwitten, with the larger the index of the index having their option specified to their domain used. **DO NOT** change the `defaultCases` array. If you want to remove it look at 
+
+**Note:** After a few experiments. Removing the `.` for email providers doesn't work for email providers that aren't `gmail.com`. Thus the `periods` option has been set to gmail domains only. It appears with yahoo a `youremail+anything@yahoo.com` doesn't work either, thus `plusSign` has been set to false as well as `periods`.
 
 ### `overrideDefaultCases: boolean`
 **default:** `false`
 
-This will remove the [default cases](#caseoptions-type) above. Set to `true` if you wish to remove them.
+This will remove the [defaultCases](#caseoptions-type) above. Set to `true` if you wish to remove them.
 ### `options` (type)
 (type used in [defaultOptions](#defaultoptions-options) and [caseOptions.options](#caseoptions-type))
 ```javascript
@@ -197,4 +214,4 @@ A list of domains you want include and apply `options` for, do not use the `@` s
 `domains: ["test.com", "other.com"]`
 
 
-See the [options](#Options-type) type above to apply these options on the matching domain
+See the [options](#options-type) type above to apply these options on the matching domain

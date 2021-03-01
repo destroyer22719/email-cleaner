@@ -11,23 +11,38 @@ const compileEmail = (email: string, option: options): string => {
         newEmail[0] = newEmail[0].replace(/\./g, "");
         email = newEmail.join("@");
     };
-    if (plusSign) email = email.replace(/\+[a-z0-9]+/i, "");
+    if (plusSign) email = email.replace(/\+[a-z0-9\-]+/i, "");
     return email;
 };
 
 const parseConfigurations = (newOptions: configuration, originalOptions: configuration = defaultConfigurations): configuration => {
     const endOptions: configuration = {...originalOptions, ...newOptions}
-    endOptions.cases = newOptions.overrideDefaultCases? [...newOptions.cases!] : [...originalOptions.cases!, ...newOptions.cases || []]
+    endOptions.defaultCases = newOptions.overrideDefaultCases ? [] : [...originalOptions.defaultCases!]
+    endOptions.cases = newOptions.cases || undefined;
     return endOptions;
 };
 
 const parseOptions = (emailDomain: string | undefined, settings: configuration = defaultConfigurations): options => {
     settings = parseConfigurations(settings);
+    
+    const defaultCases = settings.defaultCases?.map(({domains}) => domains);
+    const defaultIndices = defaultCases?.map((domain, index) => ({
+        match: domain.lastIndexOf(emailDomain!),
+        index})) || [];
+
+    const defaultMatch = defaultIndices.filter(({match}) => match !== -1);
+    
     const domainCases = settings.cases?.map(({domains}) => domains);
-    const indices = domainCases?.map(s => s.lastIndexOf(emailDomain!)) || [];
-    const match = indices.filter(x => x !== -1);
+    const indices = domainCases?.map((domain, index) => ({
+        match: domain.lastIndexOf(emailDomain!),
+        index})) || [];
+
+    const match = indices.filter(({match}) => match !== -1);
+
     if (match.length) {
         return settings.cases![indices.length -1].options;
+    } else if (defaultMatch.length) {
+        return settings.defaultCases![defaultMatch[defaultMatch.length - 1].index].options
     };
     return settings.defaultOptions!;
 }
