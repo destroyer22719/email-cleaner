@@ -1,6 +1,4 @@
-name: Continuous Integration of email-cleaner
-
-name: Publish
+name: Continuous Deployment to npm of email-cleaner
 
 on:
   release:
