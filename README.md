@@ -12,6 +12,16 @@ https://github.com/destroyer22719/email-cleaner
 # Table of Contents
 - [How to Use](#how-to-use)
 - [Documentation](#documentation)
+    - [email: string](#email-string)
+    - [configuration](#configuration)
+        - [validate: boolean](#validate-boolean)
+        - [validator: Regex](#validatorregex-regex)
+        - [defaultoptions: options](#defaultoptions-options)
+        - [excluedDomains: string[]](#excludeddomains-string)
+        - [cases: caseOptions[]](#cases-caseoptions)
+        - [overrideDefaultCases: boolean](#overridedefaultcases-boolean)
+        - [option (type)](#options-type)
+        - [caseOptions (type)](#caseoptions-type)
 # How to Use
 
 Using this module is super simple! It has been tested on NodeJS version `12.0.0` and above.
@@ -101,7 +111,7 @@ a string on domains to exclude from cleaning.
         plusSign: true,
     },
 ```
-### `cases: caseOptions`
+### `cases: caseOptions[]`
 
 Sets the options on what should be cleaned if there are any matches of email domain. See [caseOptions](#caseoptions-type) for further information on configuring. 
 
