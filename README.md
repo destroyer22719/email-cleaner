@@ -16,11 +16,11 @@ https://github.com/destroyer22719/email-cleaner
     - [configuration](#configuration)
         - [validate: boolean](#validate-boolean)
         - [validator: Regex](#validatorregex-regex)
-        - [defaultoptions: options](#defaultoptions-options)
+        - [defaultOptions: options](#defaultoptions-options)
         - [excluedDomains: string[]](#excludeddomains-string)
         - [cases: caseOptions[]](#cases-caseoptions)
         - [overrideDefaultCases: boolean](#overridedefaultcases-boolean)
-        - [option (type)](#options-type)
+        - [options (type)](#options-type)
         - [caseOptions (type)](#caseoptions-type)
 # How to Use
 
@@ -66,7 +66,6 @@ set options that allows you to control how this module works
     defaultOptions?: options,
     cases?: caseOptions[],
     overrideDefaultCases?: boolean,
-
 ```
 
 ### `validate: boolean`
