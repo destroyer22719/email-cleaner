@@ -9,6 +9,9 @@ However, most backend developer like myself are probably really lazy to even che
 Feel free to contribute to this project! It's open for pull requests and issues!
 https://github.com/destroyer22719/email-cleaner
 
+# Table of Contents
+- [How to Use](#how-to-use)
+- [Documentation](#documentation)
 # How to Use
 
 Using this module is super simple! It has been tested on NodeJS version `12.0.0` and above.
@@ -139,7 +142,7 @@ Any domains written on the `cases` array that matches the `defaultCases` array w
 ### `overrideDefaultCases: boolean`
 **default:** `false`
 
-This will remove the [defaultCases](#caseoptions-type) above. Set to `true` if you wish to remove them.
+This will remove the [defaultCases](#cases-caseoptions) above. Set to `true` if you wish to remove them.
 ### `options` (type)
 (type used in [defaultOptions](#defaultoptions-options) and [caseOptions.options](#caseoptions-type))
 ```javascript
