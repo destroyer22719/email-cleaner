@@ -37,7 +37,7 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
         match: domain.lastIndexOf(emailDomain!),
         index})) || [];
 
-    const match = indices.filter(({match}) => match === -1);
+    const match = indices.filter(({match}) => match !== -1);
 
     if (match.length) {
         return settings.cases![indices.length -1].options;
