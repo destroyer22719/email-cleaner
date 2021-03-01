@@ -1,2 +1,4 @@
 __tests__
 jest.config.js
+.github/
+README.md
