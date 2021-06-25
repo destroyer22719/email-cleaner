@@ -52,10 +52,15 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
 //main function, takes in an email as a string and configuration
 
 /**
- * Function to output cleaned email
+ * Function to output cleaned email and prevent different email inputs going to the same email address
  * @param {string} email Email to clean
  * @param {object} options  Object to configure the behaviour of function, see documentation at https://github.com/destroyer22719/email-cleaner#documentation
  * @returns {(string|null)} returns string, null if email is invalid
+ * 
+ * @example 
+ * emailCleaner("john.smith@gmail.com") //returns johnsmith@gmail.com
+ * emailCleaner("John.Smith+123@gmail.com") //returns johnsmith@gmail.com
+ * emailCleaner("J.o.h.n.S.m.i.t.h+123@gmail.com") //returns johnsmith@gmail.com
  */
 
 const cleanEmail = (email: string, options: configuration = defaultConfigurations): string | null => {

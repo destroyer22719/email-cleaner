@@ -37,6 +37,9 @@ const emailCleaner = require("email-cleaner"); //CommonJS
 import emailCleaner from "email-cleaner"; //ES Module
 
 emailCleaner("John.Smith@gmail.com") // johnsmith@gmail.com
+emailCleaner("john.smith@gmail.com") //returns johnsmith@gmail.com
+emailCleaner("John.Smith+123@gmail.com") //returns johnsmith@gmail.com
+emailCleaner("J.o.h.n.S.m.i.t.h+123@gmail.com") //returns johnsmith@gmail.com
 ```
 
 # Documentation
