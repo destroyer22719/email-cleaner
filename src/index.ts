@@ -13,7 +13,7 @@ const compileEmail = (email: string, option: options): string => {
     return email;
 };
 
-//generates configurations based new and old configurations
+//generates configurations based on new and old configurations
 const parseConfigurations = (newOptions: configuration, originalOptions: configuration = defaultConfigurations): configuration => {
     const endOptions: configuration = {...originalOptions, ...newOptions}
     endOptions.defaultCases = newOptions.overrideDefaultCases ? [] : [...originalOptions.defaultCases!]
@@ -49,7 +49,7 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
     return settings.defaultOptions!;
 }
 
-//main function, takes in an email as a string and configuration
+//main synchronous function, takes in an email as a string and configuration
 
 /**
  * Function to output cleaned email and prevent different email inputs going to the same email address
@@ -63,7 +63,7 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
  * emailCleaner("J.o.h.n.S.m.i.t.h+123@gmail.com") //returns johnsmith@gmail.com
  */
 
-const cleanEmail = (email: string, options: configuration = defaultConfigurations): string | null => {
+export const cleanEmailSync = (email: string, options: configuration = defaultConfigurations): string | null => {
     options = parseConfigurations(options);
     const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
 
@@ -78,4 +78,39 @@ const cleanEmail = (email: string, options: configuration = defaultConfiguration
     return email;
 }
 
-export = cleanEmail;
+//main asynchronous function, takes in an email as a string and configuration and returns a promise with either the cleaned email or rejects if invalid email if settings verify email
+
+/**
+ * Function to output cleaned email and prevent different email inputs going to the same email address
+ * @param {string} email Email to clean
+ * @param {object} options  Object to configure the behaviour of function, see documentation at https://github.com/destroyer22719/email-cleaner#documentation
+ * @returns {Promise<(string|null)>} returns string, null if email is invalid
+ * 
+ * @example 
+ * //using async/await
+ * await emailCleanerAsync("john.smith@gmail.com") //returns johnsmith@gmail.com
+ * 
+ * //using then/catch
+ * emailCleaner("John.Smith+123@gmail.com")
+ *  .then(email => console.log(email))
+ *  .catch(() => console.log("Invalid email"))
+ * //returns johnsmith@gmail.com
+ */
+
+
+export const cleanEmailAsync = (email: string, options: configuration = defaultConfigurations): Promise<string | null> => {
+    options = parseConfigurations(options);
+    const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
+
+    return new Promise((resolve, reject) => {
+        if (!email.match(validatorRegex!) && validate) reject(null)
+        if (!email.match("@")) return compileEmail(email, defaultOptions!);
+        if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
+            if (validate && email.match(validatorRegex!)) {
+                return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
+            }
+            return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options))
+        } 
+        resolve(email);
+    })
+}
