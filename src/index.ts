@@ -44,7 +44,7 @@ const parseOptions = (emailDomain: string | undefined, settings: configuration =
     if (match.length) {
         return settings.cases![indices.length -1].options;
     } else if (defaultMatch.length) {
-        return settings.defaultCases![defaultMatch[defaultMatch.length - 1].index].options
+        return settings.defaultCases![defaultMatch[defaultMatch.length - 1].index].options;
     };
     return settings.defaultOptions!;
 }
@@ -67,13 +67,13 @@ export const cleanEmailSync = (email: string, options: configuration = defaultCo
     options = parseConfigurations(options);
     const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
 
-    if (!email.match(validatorRegex!) && validate) return null
+    if (!email.match(validatorRegex!) && validate) return null;
     if (!email.match("@")) return compileEmail(email, defaultOptions!);
     if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
         if (validate && email.match(validatorRegex!)) {
             return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
         }
-        return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options))
+        return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
     } 
     return email;
 }
@@ -103,13 +103,13 @@ export const cleanEmailAsync = (email: string, options: configuration = defaultC
     const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
 
     return new Promise((resolve, reject) => {
-        if (!email.match(validatorRegex!) && validate) reject(null)
+        if (!email.match(validatorRegex!) && validate) reject(null);
         if (!email.match("@")) return compileEmail(email, defaultOptions!);
         if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
             if (validate && email.match(validatorRegex!)) {
                 return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
             }
-            return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options))
+            return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
         } 
         resolve(email);
     })
