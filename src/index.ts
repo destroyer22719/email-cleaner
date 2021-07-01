@@ -97,7 +97,6 @@ export const cleanEmailSync = (email: string, options: configuration = defaultCo
  * //returns johnsmith@gmail.com
  */
 
-
 export const cleanEmailAsync = (email: string, options: configuration = defaultConfigurations): Promise<string | null> => {
     options = parseConfigurations(options);
     const {excludedDomains, validatorRegex, validate, defaultOptions} = options;
@@ -107,9 +106,9 @@ export const cleanEmailAsync = (email: string, options: configuration = defaultC
         if (!email.match("@")) return compileEmail(email, defaultOptions!);
         if (excludedDomains!.indexOf(email.split("@")[1].toLowerCase()) === -1) {
             if (validate && email.match(validatorRegex!)) {
-                return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
+                resolve(compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options)));
             }
-            return compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options));
+            resolve(compileEmail(email, parseOptions(email.split("@")[1].toLowerCase(), options)));
         } 
         resolve(email);
     })
